@@ -1,9 +1,40 @@
 from django.contrib import admin
 import firstapp.models as models
-# Register your models here.
-admin.site.register(models.Actor)
-admin.site.register(models.Genre)
-admin.site.register(models.Language)
-admin.site.register(models.Director)
-admin.site.register(models.Content)
-admin.site.register(models.Movie)
+
+# ModelAdmin classes to customize the admin interface
+class ActorAdmin(admin.ModelAdmin):
+    list_display = ['first_name', 'last_name', 'date_of_birth']
+    # for enabling search functionality
+    search_fields = ['first_name', 'last_name']
+
+class GenreAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    search_fields = ['title']
+
+class LanguageAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    search_fields = ['title']
+
+class DirectorAdmin(admin.ModelAdmin):
+    list_display = ['first_name', 'last_name', 'date_of_birth']
+    search_fields = ['first_name', 'last_name']
+
+class ContentAdmin(admin.ModelAdmin):
+    list_display = ['subtitle', 'video_url']
+    search_fields = ['subtitle']
+
+class MovieAdmin(admin.ModelAdmin):
+    list_display = ['title', 'rating', 'language', 'release_date']
+    search_fields = ['title', 'description']
+    # for enabling filtering options in the admin interface
+    list_filter = ['language', 'release_date', 'rating']
+    # for better many-to-many relationship handling
+    filter_horizontal = ['actors', 'directors', 'genres']
+
+# Register models with their respective Admin classes
+admin.site.register(models.Actor, ActorAdmin)
+admin.site.register(models.Genre, GenreAdmin)
+admin.site.register(models.Language, LanguageAdmin)
+admin.site.register(models.Director, DirectorAdmin)
+admin.site.register(models.Content, ContentAdmin)
+admin.site.register(models.Movie, MovieAdmin)
