@@ -24,12 +24,25 @@ class ContentAdmin(admin.ModelAdmin):
     search_fields = ['subtitle']
 
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ['title', 'rating', 'language', 'release_date']
+    def getactors(self,current_movie):      #custom method to get actors 
+        actors=current_movie.actors.all()   #collecting all actors objects related to the movie
+        # actor_list=[]
+        # for actor in actors:
+        #     fname=actor.first_name
+        #     lname=actor.last_name
+        #     actor_list.append(f"{fname} {lname}")
+        # return actor_list
+        names = [f"{a.first_name} {a.last_name}" for a in actors]
+        return names
+    getactors.short_description = 'ACTORS'
+    list_display = ['title', 'rating', 'language', 'release_date','getactors']
     search_fields = ['title', 'description']
     # for enabling filtering options in the admin interface
     list_filter = ['language', 'release_date', 'rating']
     # for better many-to-many relationship handling
     filter_horizontal = ['actors', 'directors', 'genres']
+    
+
 
 # Register models with their respective Admin classes
 admin.site.register(models.Actor, ActorAdmin)
