@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Create Actor{% endblock %}
+
+{% block content %}
+<div class="card shadow p-4">
+    <h3>Create Actor</h3>
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label>First Name</label>
+            <input type="text" class="form-control" name="first_name" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Last Name</label>
+            <input type="text" class="form-control" name="last_name" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Date of Birth</label>
+            <input type="date" class="form-control" name="date_of_birth" required>
+        </div>
+
+        <button class="btn btn-primary">Create</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card p-4 shadow">
+    <h3>Create Director</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label>First Name</label>
+            <input type="text" name="first_name" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Last Name</label>
+            <input type="text" name="last_name" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Date of Birth</label>
+            <input type="date" name="date_of_birth" class="form-control" required>
+        </div>
+
+        <button class="btn btn-primary">Create</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Movie Catalog{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">All Movies</h2>
+
+{% if movies %}
+<div class="row g-4">
+    {% for movie in movies %}
+    <div class="col-sm-6 col-md-4 col-lg-3">
+
+        <div onclick="window.location.href='{% url 'movie_detail' movie.id %}'"
+             class="card movie-card shadow-sm">
+
+            <!-- Floating Rating Badge -->
+            <span class="movie-badge">⭐ {{ movie.rating }}</span>
+
+            {% if movie.poster %}
+                <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.title }}">
+            {% else %}
+                <div class="bg-secondary text-white d-flex align-items-center justify-content-center"
+                     style="height: 300px;">
+                    <span>No Poster</span>
+                </div>
+            {% endif %}
+
+            <div class="card-body">
+                <h6 class="card-title fw-bold mb-1">{{ movie.title }}</h6>
+
+                <p class="text-muted mb-1" style="font-size: 0.85rem;">
+                    {{ movie.genre.title }} • {{ movie.language.title }}
+                </p>
+
+                <p class="text-muted" style="font-size: 0.75rem;">
+                    {{ movie.description|truncatechars:80 }}
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+<div class="alert alert-info">
+    No movies found. Go to your <a href="{% url 'dashboard' %}">Dashboard</a> to add one.
+</div>
+{% endif %}
+
+{% endblock %}

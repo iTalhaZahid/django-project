@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow p-4">
+    <h3>Create Movie</h3>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label>Movie Title</label>
+            <input type="text" name="title" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Description</label>
+            <textarea name="description" class="form-control" rows="4" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label>Rating</label>
+            <input type="number" name="rating" step="0.1" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Actors</label>
+            <select name="actors" multiple class="form-control">
+                {% for actor in actors %}
+                <option value="{{ actor.id }}">{{ actor.first_name }} {{ actor.last_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Language</label>
+            <select name="language" class="form-control" required>
+                {% for l in languages %}
+                <option value="{{ l.id }}">{{ l.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Directors (hold Ctrl/Cmd to select multiple)</label>
+            <select name="directors" multiple class="form-control" required>
+                {% for d in directors %}
+                <option value="{{ d.id }}">{{ d.first_name }} {{ d.last_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Content (optional)</label>
+            <select name="content" class="form-control">
+                <option value="">-- No Content --</option>
+                {% for c in contents %}
+                <option value="{{ c.id }}">{{ c.subtitle }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Genres (hold Ctrl/Cmd to select multiple)</label>
+            <select name="genres" multiple class="form-control" required>
+                {% for g in genres %}
+                <option value="{{ g.id }}">{{ g.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Release Date</label>
+            <input type="date" name="release_date" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Poster</label>
+            <input type="file" class="form-control" name="poster">
+        </div>
+
+        <button class="btn btn-primary">Create Movie</button>
+    </form>
+</div>
+{% endblock %}

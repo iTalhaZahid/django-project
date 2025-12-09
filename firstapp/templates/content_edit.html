@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card p-4 shadow">
+    <h3>Edit Content</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Subtitle</label>
+            <input type="text" name="subtitle" value="{{ content.subtitle }}" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Video URL</label>
+            <input type="url" name="video_url" value="{{ content.video_url }}" class="form-control" required>
+        </div>
+
+        <button class="btn btn-success">Update</button>
+    </form>
+</div>
+{% endblock %}

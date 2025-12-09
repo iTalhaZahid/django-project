@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow p-4">
+    <h3>Edit Movie</h3>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label>Title</label>
+            <input type="text" name="title" value="{{ movie.title }}" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Description</label>
+            <textarea name="description" class="form-control" rows="4" required>{{ movie.description }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label>Rating</label>
+            <input type="number" name="rating" step="0.1" value="{{ movie.rating }}" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Actors</label>
+            <select name="actors" multiple class="form-control">
+                {% for actor in actors %}
+                <option value="{{ actor.id }}" {% if actor in movie.actors.all %}selected{% endif %}>
+                    {{ actor.first_name }} {{ actor.last_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Language</label>
+            <select name="language" class="form-control" required>
+                {% for l in languages %}
+                <option value="{{ l.id }}" {% if l.id == movie.language.id %}selected{% endif %}>
+                    {{ l.title }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Directors (hold Ctrl/Cmd to select multiple)</label>
+            <select name="directors" multiple class="form-control" required>
+                {% for d in directors %}
+                <option value="{{ d.id }}" {% if d in movie.directors.all %}selected{% endif %}>
+                    {{ d.first_name }} {{ d.last_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Content</label>
+            <select name="content" class="form-control">
+                <option value="">-- No Content --</option>
+                {% for c in contents %}
+                <option value="{{ c.id }}" {% if movie.content and c.id == movie.content.id %}selected{% endif %}>
+                    {{ c.subtitle }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Genres (hold Ctrl/Cmd to select multiple)</label>
+            <select name="genres" multiple class="form-control" required>
+                {% for g in genres %}
+                <option value="{{ g.id }}" {% if g in movie.genres.all %}selected{% endif %}>
+                    {{ g.title }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Release Date</label>
+            <input type="date" name="release_date" value="{{ movie.release_date }}" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Poster</label>
+            <input type="file" class="form-control" name="poster">
+
+            {% if movie.poster %}
+            <img src="{{ movie.poster.url }}" class="img-thumbnail mt-3" width="180">
+            {% endif %}
+        </div>
+
+        <button class="btn btn-success">Update Movie</button>
+    </form>
+</div>
+{% endblock %}

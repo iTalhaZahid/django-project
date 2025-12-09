@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card shadow p-4">
+    <h3>Edit Genre</h3>
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label>Genre Title</label>
+            <input type="text" class="form-control" name="title" value="{{ genre.title }}" required>
+        </div>
+
+        <button class="btn btn-success">Update Genre</button>
+    </form>
+</div>
+
+{% endblock %}

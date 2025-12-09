@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Genres{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Genres</h2>
+    <a href="{% url 'genre_create' %}" class="btn btn-primary btn-sm">+ Add Genre</a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Genre Title</th>
+                        <th style="width: 160px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for genre in genres %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ genre.title }}</td>
+                        <td>
+                            <a href="{% url 'genre_edit' genre.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'genre_delete' genre.id %}" 
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Delete this genre?');">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center py-3">No genres found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,294 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Admin Dashboard</h2>
+
+<!-- ======================
+     ROW 1: MOVIES & ACTORS
+     ====================== -->
+<div class="row mb-4">
+    <!-- Movies Table -->
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Movies</h5>
+                <a href="{% url 'movie_create' %}" class="btn btn-sm btn-light">+ Add Movie</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Rating</th>
+                                <th>Language</th>
+                                <th>Genre</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for movie in movies %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ movie.title }}</td>
+                                <td>{{ movie.rating }}</td>
+                                <td>{{ movie.language.title }}</td>
+                                <td>{{ movie.genre.title }}</td>
+                                <td>
+                                    <a href="{% url 'movie_edit' movie.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="{% url 'movie_delete' movie.id %}" class="btn btn-sm btn-danger"
+                                       onclick="return confirm('Are you sure you want to delete this movie?');">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center">No movies found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actors Table -->
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+            <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Actors</h5>
+                <a href="{% url 'actor_create' %}" class="btn btn-sm btn-light">+ Add Actor</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Date of Birth</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for actor in actors %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ actor.first_name }}</td>
+                                <td>{{ actor.last_name }}</td>
+                                <td>{{ actor.date_of_birth }}</td>
+                                <td>
+                                    <a href="{% url 'actor_edit' actor.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="{% url 'actor_delete' actor.id %}" class="btn btn-sm btn-danger"
+                                       onclick="return confirm('Delete this actor?');">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center">No actors found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     ROW 2: GENRES & LANGUAGES
+     ========================= -->
+<div class="row mb-4">
+    <!-- Genres Table -->
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Genres</h5>
+                <a href="{% url 'genre_create' %}" class="btn btn-sm btn-light">+ Add Genre</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for genre in genres %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ genre.title }}</td>
+                                <td>
+                                    <a href="{% url 'genre_edit' genre.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="{% url 'genre_delete' genre.id %}" class="btn btn-sm btn-danger"
+                                       onclick="return confirm('Delete this genre?');">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="3" class="text-center">No genres found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Languages Table -->
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+            <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Languages</h5>
+                <a href="{% url 'language_create' %}" class="btn btn-sm btn-light">+ Add Language</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for language in languages %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ language.title }}</td>
+                                <td>
+                                    <a href="{% url 'language_edit' language.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="{% url 'language_delete' language.id %}" class="btn btn-sm btn-danger"
+                                       onclick="return confirm('Delete this language?');">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="3" class="text-center">No languages found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     ROW 3: DIRECTORS & CONTENT
+     ========================= -->
+<div class="row mb-4">
+    <!-- Directors Table -->
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Directors</h5>
+                <a href="{% url 'director_create' %}" class="btn btn-sm btn-light">+ Add Director</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Date of Birth</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for director in directors %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ director.first_name }}</td>
+                                <td>{{ director.last_name }}</td>
+                                <td>{{ director.date_of_birth }}</td>
+                                <td>
+                                    <a href="{% url 'director_edit' director.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="{% url 'director_delete' director.id %}" class="btn btn-sm btn-danger"
+                                       onclick="return confirm('Delete this director?');">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center">No directors found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Table -->
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Content</h5>
+                <a href="{% url 'content_create' %}" class="btn btn-sm btn-light">+ Add Content</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Subtitle</th>
+                                <th>Video URL</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in contents %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ c.subtitle }}</td>
+                                <td>
+                                    <a href="{{ c.video_url }}" target="_blank">
+                                        {{ c.video_url|truncatechars:30 }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'content_edit' c.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="{% url 'content_delete' c.id %}" class="btn btn-sm btn-danger"
+                                       onclick="return confirm('Delete this content?');">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">No content found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
