@@ -56,6 +56,13 @@ urlpatterns = [
     path('movies/<int:movie_id>/delete/', views.movie_delete, name='movie_delete'),
     path('movies/<int:movie_id>/', views.movie_detail, name='movie_detail'),
 
+    # ===============================
+    # AUTH
+    # ===============================
+    path('signup/', views.signup, name='signup'),
+    path('signin/', views.signin, name='signin'),
+    path('signout/', views.signout, name='signout'),
+
 
     # ===============================
     # DASHBOARD (Combined all tables)
