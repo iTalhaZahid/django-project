@@ -19,6 +19,10 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 
+admin.site.site_title = 'Movie Admin Dashboard'
+admin.site.site_header = 'Movie Admin '
+admin.site.index_title = 'Movie Admin Dashboard'
+
 urlpatterns = [
     path('', include('firstapp.urls')),  # Include URLs from firstapp
     path('admin/', admin.site.urls),
