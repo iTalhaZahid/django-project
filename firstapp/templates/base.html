@@ -63,6 +63,11 @@
         <div class="justify-content-end gap-4 d-flex">
           <a class="btn btn-sm btn-outline-light" href="{% url 'home' %}">Home</a>
           <a class="btn btn-sm btn-outline-light" href="{% url 'dashboard' %}">Dashboard</a>
+          {% if user.is_authenticated %}
+            <a class="btn btn-sm btn-outline-light" href="{% url 'signout' %}">Sign out</a>
+          {% else %}
+            <a class="btn btn-sm btn-outline-light" href="{% url 'signin' %}">Sign in</a>
+          {% endif %}
         </div>
       </div>
     </nav>
