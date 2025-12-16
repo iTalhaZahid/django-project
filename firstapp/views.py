@@ -464,16 +464,18 @@ def signup(request):
 
 
 def signin(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
+        
         if user is not None:
             auth_login(request, user)
-            return redirect('home')
+            return redirect('dashboard')
         else:
             messages.error(request, 'Invalid username or password.')
-            return render(request, 'signin.html')
     return render(request, 'signin.html')
 
 
